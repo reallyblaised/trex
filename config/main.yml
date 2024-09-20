@@ -1,0 +1,72 @@
+# -------------------------------
+# user-defined configuration file
+# -------------------------------
+user_id: "bldelane" # CERN user ID for kinit @CERN.CH
+
+# test-run configuration
+# =======================
+test: True
+max_events: 1000
+
+
+# data-taking configuration
+# ==========================
+years:
+  - "2011"
+  - "2012"
+  - "2015"
+  - "2016"
+  - "2017"
+  - "2018"
+magpols:
+  - "MagUp"
+  - "MagDown"
+data_types:
+  - "data"
+  - "mc"
+
+# remote ntuple configuration
+# ===========================
+channe: "bu2kmumu"
+key: "bu2kmumutuple"
+tree: "DecayTree"
+boi: # Branches Of Interest
+  - "Kplus_PIDmu"
+  - "Kplus_PIDe"
+  - "Kplus_PIDp"
+  - "Kplus_PIDK"
+  - "Kplus_isMuon"
+  - "Kplus_hasMuon"
+  - "Kplus_InMuonAcc"
+  - "Kplus_ProbNNghost"
+  - "Bplus_DTF_MASS_JPsi_Constr_J_psi_1S_M"
+  - "Bplus_DTF_MASS_JPsi_Constr__M"
+  - "Bplus_M"
+  - "J_psi_1S_M"
+  - "Kplus_LOKI_ETA"
+  - "nTracks"
+  - "Bplus_L0Global_TIS"
+  - "muplus_L0MuonDecision_TOS"
+  - "muminus_L0MuonDecision_TOS"
+  - "Bplus_Hlt1TwoTrackMVADecision_TOS"
+  - "Bplus_Hlt1TrackMVADecision_TOS"
+  - "Bplus_Hlt2Topo2BodyDecision_TOS"
+  - "Bplus_Hlt2Topo3BodyDecision_TOS"
+  - "Kplus_PT"
+  - "Kplus_P"
+  - "Kplus_TRUEID"
+  - "Bplus_TRUEID"
+  - "Bplus_BKGCAT"
+selection:
+  common_criteria: "( (Bplus_Hlt1TwoTrackMVADecision_TOS) | (Bplus_Hlt1TrackMVADecision_TOS) ) &\
+      ( (Bplus_Hlt2Topo2BodyDecision_TOS) | (Bplus_Hlt2Topo3BodyDecision_TOS) ) & \
+      ( (Kplus_PT>250) & (Kplus_P>10e3) & (Kplus_P<100e3) & (J_psi_1S_M>3096-50) & (J_psi_1S_M<3096+50) )"
+  global_tis: "(Bplus_L0Global_TIS)"
+  muon_tos: "((muplus_L0MuonDecision_TOS) | (muminus_L0MuonDecision_TOS))"
+  truth_matching: "( (Kplus_TRUEID==0) & (Bplus_TRUEID==0) & (Bplus_BKGCAT==60) )" # applied to study ghost PID response in DDmisID
+
+
+# storage configuration
+# =====================
+storage:
+  local: "/ceph/submit/data/user/b/blaised/trex"
