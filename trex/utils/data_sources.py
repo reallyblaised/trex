@@ -5,62 +5,42 @@ import os
 import pprint
 from .io import simple_load, write_df
 from .auth import kinit
-from trex import DEFAULT_CONFIG_PATH
+from trex import DEFAULT_CONFIG_PATH, DEFAULT_DATA_PATH
 
 
 class MultiConfigLoaderMixin:
-    """
-    A mixin to extend DataSource for loading multiple configurations
-    based on years and magnet polarities specified in the configuration.
-    """
+    """Mixin for loading configurations based on years and magnet polarities."""
 
     def load_multiple_configs_from_config(self, data_type, **kwargs):
         """Load multiple configurations for the years and magnet polarities specified in the config."""
         years = self.config.get("years", [])
         magpols = self.config.get("magpols", [])
         if not years or not magpols:
-            self.logger.error(
-                "No years or magnet polarities specified in the configuration."
-            )
+            self.logger.error("No years or magnet polarities specified in the configuration.")
             return
 
         for year in years:
             for magpol in magpols:
-                self.logger.info(
-                    f"Loading config for Year: {year}, Magnet Polarity: {magpol}"
-                )
+                self.logger.info(f"Loading config for Year: {year}, Magnet Polarity: {magpol}")
                 try:
                     # Load the configuration for each year and magpol
                     self.run_simple_load(year, magpol, data_type, **kwargs)
                 except Exception as e:
-                    self.logger.error(
-                        f"Failed to load config for Year: {year}, Magpol: {magpol}: {e}"
-                    )
+                    self.logger.error(f"Failed to load config for Year: {year}, Magpol: {magpol}: {e}")
 
 
 class DataWritingMixin:
-    """
-    A mixin to extend DataSource for writing data to a ROOT file.
-    """
+    """Mixin for writing data to a ROOT file."""
 
     def write_multiple_files_from_config(self, data_type, **kwargs):
         """
         Load and write data for the years and magnet polarities specified in the configuration.
-
-        Parameters:
-        -----------
-        output_dir : str
-            The base directory where output files will be written.
-        data_type : str
-            The data type (e.g., 'data' or 'mc') to process.
         """
         years = self.config.get("years", [])
         magpols = self.config.get("magpols", [])
         output_dir = self.config.get("output_storage", None)
         if not years or not magpols:
-            self.logger.error(
-                "No years or magnet polarities specified in the configuration."
-            )
+            self.logger.error("No years or magnet polarities specified in the configuration.")
             return
 
         for year in years:
@@ -68,36 +48,21 @@ class DataWritingMixin:
                 self.logger.info(f"Processing Year: {year}, Magnet Polarity: {magpol}")
                 try:
                     # Load the data
-                    ntuple_data = self.run_simple_load(
-                        year, magpol, data_type, **kwargs
-                    )
+                    ntuple_data = self.run_simple_load(year, magpol, data_type, **kwargs)
 
                     # Define the output file path
                     if not output_dir:
-                        self.logger.error(
-                            "Output directory not specified in the configuration."
-                        )
-                        raise ValueError(
-                            "Output directory not specified in the configuration."
-                        )
-                    output_file = (
-                        f"{output_dir}/{self.channel}_{data_type}_{magpol}_{year}.root"
-                    )
+                        self.logger.error("Output directory not specified in the configuration.")
+                        raise ValueError("Output directory not specified in the configuration.")
+                    output_file = f"{output_dir}/{self.channel}_{data_type}_{magpol}_{year}.root"
 
                     # Write the data using write_df function
                     self.logger.info(f"Writing data to {output_file}")
-                    write_df(
-                        ntuple_data, path=output_file, key=None, treename="DecayTree"
-                    )
+                    write_df(ntuple_data, path=output_file, key=None, treename="DecayTree")
 
-                    self.logger.info(
-                        f"Successfully wrote data for Year: {year}, Magnet Polarity: {magpol}"
-                    )
-
+                    self.logger.info(f"Successfully wrote data for Year: {year}, Magnet Polarity: {magpol}")
                 except Exception as e:
-                    self.logger.error(
-                        f"Failed to process Year: {year}, Magpol: {magpol}: {e}"
-                    )
+                    self.logger.error(f"Failed to process Year: {year}, Magpol: {magpol}: {e}")
 
 
 class DataSource(MultiConfigLoaderMixin, DataWritingMixin):
@@ -108,35 +73,34 @@ class DataSource(MultiConfigLoaderMixin, DataWritingMixin):
     def __init__(self, json_path, channel, config_path=DEFAULT_CONFIG_PATH):
         self.config_path = config_path
         self.json_path = json_path
-        self.channel = channel  # Store the channel to use its configuration
+        self.channel = channel
+
+        # Set up logging first, as we are using logger in other methods
+        log_file = f"logs/datasource/{self.channel}.log"
+        self.setup_logging(log_file)
+
+        # Now that logging is set up, you can load config and file map
         self.config = self.load_config()
         self.file_map = self.load_file_map()
 
+
     def setup_logging(self, log_file):
         """Set up logging to both console and a log file."""
-        # Create the logs directory if it doesn't exist
         os.makedirs(os.path.dirname(log_file), exist_ok=True)
 
-        # Create a logger
         self.logger = logging.getLogger(self.channel)
         self.logger.setLevel(logging.DEBUG)
 
-        # Create handlers for logging to both console and file
         console_handler = logging.StreamHandler()
         file_handler = logging.FileHandler(log_file)
 
-        # Set logging levels for both handlers
-        console_handler.setLevel(logging.INFO)  # Print info and above to console
-        file_handler.setLevel(logging.DEBUG)  # Log everything to file
+        console_handler.setLevel(logging.INFO)
+        file_handler.setLevel(logging.DEBUG)
 
-        # Create a formatter and set it for both handlers
-        formatter = logging.Formatter(
-            "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
-        )
+        formatter = logging.Formatter("%(asctime)s - %(name)s - %(levelname)s - %(message)s")
         console_handler.setFormatter(formatter)
         file_handler.setFormatter(formatter)
 
-        # Add the handlers to the logger
         self.logger.addHandler(console_handler)
         self.logger.addHandler(file_handler)
 
@@ -170,40 +134,27 @@ class DataSource(MultiConfigLoaderMixin, DataWritingMixin):
 
     def get_file(self, year: str, magpol: str, data_type: str):
         """Get the appropriate file path from the JSON database based on the year, magnet polarity, and data type."""
-        self.logger.debug(
-            f"Fetching file for year: {year}, magpol: {magpol}, data_type: {data_type}"
-        )
+        self.logger.debug(f"Fetching file for year: {year}, magpol: {magpol}, data_type: {data_type}")
         try:
             return self.file_map[year][data_type][magpol]
         except KeyError as e:
-            self.logger.error(
-                f"Invalid combination of year ({year}), magpol ({magpol}), or data_type ({data_type}): {e}"
-            )
+            self.logger.error(f"Invalid combination of year ({year}), magpol ({magpol}), or data_type ({data_type}): {e}")
             raise
 
     def run_simple_load(self, year, magpol, data_type, **kwargs):
-        """
-        Source the appropriate ntuple file, key, tree, and pass it to the simple_load function.
-        Also sets up the log file dynamically based on channel, year, magpol, and data_type.
-        """
-        # Dynamically set log file path based on channel, year, magpol, and data type
+        """Source ntuple file, key, tree, and pass it to the simple_load function."""
         log_file = f"logs/datasource/{self.channel}_{data_type}_{magpol}_{year}.log"
         self.setup_logging(log_file)
 
         ntuple_file = self.get_file(year, magpol, data_type)
         key, tree = self.get_key_tree()
-        self.logger.info(
-            f"Running simple_load with file: {ntuple_file}, key: {key}, tree: {tree}"
-        )
+        self.logger.info(f"Running simple_load with file: {ntuple_file}, key: {key}, tree: {tree}")
 
-        # Call the simple_load function, passing key, tree, and any additional arguments.
         simple_load(ntuple_file, key=key, tree=tree, **kwargs)
-
-        # Generate a report after loading
         self.generate_report(year, data_type, magpol)
 
     def generate_report(self, year, data_type, magpol):
-        """Generate a nicely formatted report after the file is loaded."""
+        """Generate a report after loading."""
         channel_config = self.config["channel"][self.channel]
         boi = channel_config.get("boi", [])
         selection = channel_config.get("selection", {})
@@ -225,31 +176,8 @@ class DataSource(MultiConfigLoaderMixin, DataWritingMixin):
         Truth Matching: {selection.get('truth_matching', 'N/A')}
         =========================================
         """
-        self.logger.info(report)  # Log the report
-        print(report)  # Also print the report to the console
-
-    @property
-    def available_years(self):
-        """Return the available years from the configuration."""
-        return self.config.get("years", [])
-
-    @property
-    def available_magpols(self):
-        """Return the available magnet polarities from the configuration."""
-        return self.config.get("magpols", [])
-
-    @property
-    def available_data_types(self):
-        """Return the available data types from the configuration."""
-        return self.config.get("data_types", [])
-
-    def __repr__(self):
-        """A string representation for debugging purposes with a nicely formatted channel overview."""
-        channel_config = self.config["channel"][self.channel]
-        repr_str = f"\nDataSource for Channel: {self.channel}\n"
-        repr_str += "Configuration:\n"
-        repr_str += pprint.pformat(channel_config, indent=4)
-        return repr_str
+        self.logger.info(report)
+        print(report)
 
 
 class EosDataSource(DataSource):
@@ -265,8 +193,8 @@ class EosDataSource(DataSource):
             kinit(user_id)
             self.logger.info(f"Successfully authenticated as {user_id}.")
         except Exception as e:
-            self.logger.error("Kerberos authentication failed for user {user_id}: {e}")
-            raise ValueError("Kerberos authentication failed for user {user_id}: {e}")
+            self.logger.error(f"Kerberos authentication failed for user {user_id}: {e}")
+            raise ValueError(f"Kerberos authentication failed for user {user_id}: {e}")
 
         self.logger.info(f"Running simple_load for the new channel: {self.channel}")
 
@@ -279,12 +207,16 @@ class DataSourceFactory:
     """
 
     @staticmethod
-    def create_data_source(channel, config_path, json_path):
+    def create_data_source(channel, data_dir_path = DEFAULT_DATA_PATH):
         """Factory method to create the appropriate DataSource based on the channel name."""
-        if channel == "butojpsik_mm":
-            return EosDataSource(config_path, json_path, channel)
-        else:
-            raise ValueError(f"Unknown channel: {channel}")
+        match channel:
+            case "butojpsik_mm":
+                json_path = os.getenv('EOS_JSON_PATH', f"{data_dir_path}/eos_butojpsik_run12.json")
+                return EosDataSource(
+                    json_path=json_path, channel="butojpsik_mm"
+                )
+            case _:
+                raise ValueError(f"Unknown channel: {channel}")
 
     # # Example usage:
     # if __name__ == "__main__":
