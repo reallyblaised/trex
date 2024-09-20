@@ -71,5 +71,4 @@ channel:
 
 # storage configuration for output files
 # ======================================
-output_storage:
-  local: "/ceph/submit/data/user/b/blaised/trex"
+output_storage  : "/ceph/submit/data/user/b/blaised/trex"

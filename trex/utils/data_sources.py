@@ -4,6 +4,8 @@ import logging
 import os
 import pprint
 from .io import simple_load, write_df
+from .auth import kinit
+from trex import DEFAULT_CONFIG_PATH
 
 
 class MultiConfigLoaderMixin:
@@ -41,7 +43,7 @@ class DataWritingMixin:
     A mixin to extend DataSource for writing data to a ROOT file.
     """
 
-    def write_multiple_files_from_config(self, output_dir, data_type, **kwargs):
+    def write_multiple_files_from_config(self, data_type, **kwargs):
         """
         Load and write data for the years and magnet polarities specified in the configuration.
 
@@ -54,6 +56,7 @@ class DataWritingMixin:
         """
         years = self.config.get("years", [])
         magpols = self.config.get("magpols", [])
+        output_dir = self.config.get("output_storage", None)
         if not years or not magpols:
             self.logger.error(
                 "No years or magnet polarities specified in the configuration."
@@ -70,6 +73,13 @@ class DataWritingMixin:
                     )
 
                     # Define the output file path
+                    if not output_dir:
+                        self.logger.error(
+                            "Output directory not specified in the configuration."
+                        )
+                        raise ValueError(
+                            "Output directory not specified in the configuration."
+                        )
                     output_file = (
                         f"{output_dir}/{self.channel}_{data_type}_{magpol}_{year}.root"
                     )
@@ -95,7 +105,7 @@ class DataSource(MultiConfigLoaderMixin, DataWritingMixin):
     A class to handle sourcing of ntuple files from the user configuration and JSON remote data map.
     """
 
-    def __init__(self, config_path, json_path, channel):
+    def __init__(self, json_path, channel, config_path=DEFAULT_CONFIG_PATH):
         self.config_path = config_path
         self.json_path = json_path
         self.channel = channel  # Store the channel to use its configuration
@@ -242,22 +252,25 @@ class DataSource(MultiConfigLoaderMixin, DataWritingMixin):
         return repr_str
 
 
-class DataSourceNewChannel(DataSource):
+class EosDataSource(DataSource):
     """
     Specialized class for a new channel data source. It can override methods if needed.
     """
 
     def run_simple_load(self, year, magpol, data_type, **kwargs):
-        """Custom behavior for the new channel's simple load can be added here."""
+        """Souce file from remote eos location after initialising the CERN Kerberos ticket."""
+
+        user_id = self.config["user_id"]
+        try:
+            kinit(user_id)
+            self.logger.info(f"Successfully authenticated as {user_id}.")
+        except Exception as e:
+            self.logger.error("Kerberos authentication failed for user {user_id}: {e}")
+            raise ValueError("Kerberos authentication failed for user {user_id}: {e}")
+
         self.logger.info(f"Running simple_load for the new channel: {self.channel}")
 
-        # Call the parent method with the same parameters
         super().run_simple_load(year, magpol, data_type, **kwargs)
-
-        # Optionally generate additional custom reports, analytics, or logs for this channel
-        self.logger.info(
-            f"Completed run for the new channel with {year}, {magpol}, {data_type}."
-        )
 
 
 class DataSourceFactory:
@@ -268,39 +281,31 @@ class DataSourceFactory:
     @staticmethod
     def create_data_source(channel, config_path, json_path):
         """Factory method to create the appropriate DataSource based on the channel name."""
-        if channel == "bu2kmumu":
-            return DataSource(config_path, json_path, channel)
-        # custom functionalities may be added by overriding the DataSource class as follows:
-        # elif channel == "new_channel":
-        #     return DataSourceNewChannel(config_path, json_path, channel)
+        if channel == "butojpsik_mm":
+            return EosDataSource(config_path, json_path, channel)
         else:
             raise ValueError(f"Unknown channel: {channel}")
 
+    # # Example usage:
+    # if __name__ == "__main__":
 
-# # Example usage:
-# if __name__ == "__main__":
-#     # Example configuration paths and channel
-#     config_path = "config/main.yml"
-#     json_path = "data/eos_butojpsik_run12.json"
+    #     # Example configuration paths and channel
+    #     config_path = "config/main.yml"
+    #     json_path = "data/eos_butojpsik_run12.json"
 
-#     # Use the factory to create the appropriate DataSource instance
-#     data_source = DataSourceFactory.create_data_source(
-#         channel="bu2kmumu",
-#         config_path=config_path,
-#         json_path=json_path
-#     )
+    #     # Use the factory to create the appropriate DataSource instance
+    #     data_source = DataSourceFactory.create_data_source(
+    #         channel="bu2kmumu", config_path=config_path, json_path=json_path
+    #     )
 
-#     # Print the data source details (channel configuration)
-#     print(data_source)
+    #     # Print the data source details (channel configuration)
+    #     print(data_source)
 
-#     # Run the simple_load function and generate a report
-#     data_source.run_simple_load(year="2011", magpol="MagUp", data_type="data")
+    #     # Load multiple configurations based on the years and magnet polarities in the config
+    #     data_source.load_multiple_configs_from_config(data_type="data")
 
-#     # Example with the new channel
-#     new_channel_source = DataSourceFactory.create_data_source(
-#         channel="new_channel",
-#         config_path=config_path,
-#         json_path=json_path
-#     )
-
-#     new_channel_source.run_simple_load(year="2015", magpol="MagDown", data_type="mc")
+    #     # Write multiple files based on the loaded configurations and write them to a ROOT file
+    #     output_dir = "/path/to/output/directory"
+    #     data_source.write_multiple_files_from_config(
+    #         output_dir=output_dir, data_type="data"
+    #     )
