@@ -6,7 +6,7 @@
         },
         "mc": {
             "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple/mc/2011/controlChannel/nTuple_Bs02PhiJpsiMuMu_MC_2011_MD_Bu2LLKNoPID_mmLine_restripped_DaVinci_v39r1p1_stripping_v21r1p1.root",
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple/mc/2011/controlChannel/nTuple_Bs02PhiJpsiMuMu_MC_2011_MU_Bu2LLKNoPID_mmLine_restripped_DaVinci_v39r1p1_stripping_v21r1p1.root",
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple/mc/2011/controlChannel/nTuple_Bs02PhiJpsiMuMu_MC_2011_MU_Bu2LLKNoPID_mmLine_restripped_DaVinci_v39r1p1_stripping_v21r1p1.root"
         }
     },
     "2012": {
