@@ -206,7 +206,7 @@ def simple_load(
     tree: str | None = "DecayTree",
     branches: list[str] | None = None,
     max_events: int | None = None,
-    library: str | None = "pd",
+    library: str | None = "ak",
     cut: str | None = None,
     timeout: int | None = 500,
     **kwargs: Any,

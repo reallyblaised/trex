@@ -124,13 +124,39 @@ class DataSource(MultiConfigLoaderMixin, DataWritingMixin):
             self.logger.error(f"File map not found: {e}")
             raise
 
-    def get_key_tree(self):
-        """Get the key and tree coordinates from the YAML config file for the selected channel."""
+    @staticmethod
+    def parse_data_selection(selection: dict) -> str:
+        """Parse the selection criteria from the YAML config file, excluding truth_matching."""
+        return " & ".join([v for k, v in selection.items() if k != "truth_matching"])
+    
+    @staticmethod
+    def parse_mc_selection(selection: dict) -> str:
+        """Parse the selection criteria from the YAML config file."""
+        return " & ".join([v for v in selection.values()]) 
+
+    def get_read_params(self, data_type: str):
+        """Get the key, tree, branches of interest, and selection criteria for the selected channel."""
         channel_config = self.config["channel"][self.channel]
-        key = channel_config.get("key", "N/A")
-        tree = channel_config.get("tree", "N/A")
-        self.logger.info(f"Retrieved key: {key}, tree: {tree}")
-        return key, tree
+        key = channel_config.get("key")
+        tree = channel_config.get("tree")
+        boi = channel_config.get("boi")
+        sel = channel_config.get("selection")
+
+        if not key or not tree or not boi or not sel:
+            raise ValueError(f"Missing necessary parameters in the channel configuration.")
+
+        # process the selection and branches, ignoring truth conditions for data
+        match data_type:
+            case "data":
+                sel = self.parse_data_selection(sel)
+                boi = [c for c in boi if "TRUEID" not in c and "BKGCAT" not in c]  # Filter for data selection
+            case "mc":
+                sel = self.parse_mc_selection(sel)
+            case _:
+                raise ValueError(f"Invalid data type: {data_type} provided to get_read_params")
+
+        self.logger.debug(f"Received input loading coordinates: key={key}, tree={tree}, data_type={data_type}")
+        return key, tree, boi, sel
 
     def get_file(self, year: str, magpol: str, data_type: str):
         """Get the appropriate file path from the JSON database based on the year, magnet polarity, and data type."""
@@ -143,15 +169,15 @@ class DataSource(MultiConfigLoaderMixin, DataWritingMixin):
 
     def run_simple_load(self, year, magpol, data_type, **kwargs):
         """Source ntuple file, key, tree, and pass it to the simple_load function."""
-        log_file = f"logs/datasource/{self.channel}_{data_type}_{magpol}_{year}.log"
-        self.setup_logging(log_file)
-
         ntuple_file = self.get_file(year, magpol, data_type)
-        key, tree = self.get_key_tree()
-        self.logger.info(f"Running simple_load with file: {ntuple_file}, key: {key}, tree: {tree}")
+        key, tree, boi, sel = self.get_read_params(data_type)
+        max_events = self.config.get('max_events', None) # curtail the number of events to load in testing
+        self.logger.info(f"Running simple_load with file: {ntuple_file}, key: {key}, data_type: {data_type}, max_events: {max_events}")
 
-        simple_load(ntuple_file, key=key, tree=tree, **kwargs)
+        df = simple_load(ntuple_file, key=key, tree=tree, branches=boi, cut=sel, max_events=max_events, **kwargs)
         self.generate_report(year, data_type, magpol)
+
+        return df
 
     def generate_report(self, year, data_type, magpol):
         """Generate a report after loading."""
@@ -167,16 +193,16 @@ class DataSource(MultiConfigLoaderMixin, DataWritingMixin):
         Magnet Polarity: {magpol}
         -----------------------------------------
         Branches of Interest (BOI):
-        {', '.join(boi)}
+        {', '.join(boi)} [excluding mc-truth branches if data]
 
         Selection Criteria:
         Common Criteria: {selection.get('common_criteria', 'N/A')}
         Global TIS: {selection.get('global_tis', 'N/A')}
         Muon TOS: {selection.get('muon_tos', 'N/A')}
-        Truth Matching: {selection.get('truth_matching', 'N/A')}
+        Truth Matching: {selection.get('truth_matching', 'N/A')} [excluded if data]
         =========================================
         """
-        self.logger.info(report)
+        self.logger.debug(report)
         print(report)
 
 
@@ -212,7 +238,8 @@ class DataSourceFactory:
         match channel:
             case "butojpsik_mm":
                 json_path = os.getenv('EOS_JSON_PATH', f"{data_dir_path}/eos_butojpsik_run12.json")
-                return EosDataSource(
+                #return EosDataSource(
+                return DataSource(
                     json_path=json_path, channel="butojpsik_mm"
                 )
             case _:

@@ -5,7 +5,6 @@ user_id: "bldelane" # CERN user ID for kinit @CERN.CH
 
 # test-run configuration
 # =======================
-test: True
 max_events: 1000
 
 
@@ -19,8 +18,8 @@ years:
   - "2017"
   - "2018"
 magpols:
-  - "MagUp"
-  - "MagDown"
+  - "MU"
+  - "MD"
 data_types:
   - "data"
   - "mc"
@@ -29,8 +28,7 @@ data_types:
 # remote ntuple configuration
 # ===========================
 channel:
-  butojpsik_mm: # B+ -> J/psi(->mumu) K+
-    storage: "a path goes here"
+  butojpsik_mm: # B+ -> J/psi(->mumu) K+s
     key: "bu2kmumutuple"
     tree: "DecayTree"
     boi: # Branches Of Interest
@@ -40,10 +38,11 @@ channel:
       - "Kplus_PIDK"
       - "Kplus_isMuon"
       - "Kplus_hasMuon"
-      - "Kplus_InMuonAcc"
+      - "Kplus_LOKI_PP_InAccMuon"
       - "Kplus_ProbNNghost"
       - "Bplus_DTF_MASS_JPsi_Constr_J_psi_1S_M"
-      - "Bplus_DTF_MASS_JPsi_Constr__M"
+      - "Bplus_DTF_MASS_JPsi_Constr_M"
+      - "Bplus_LOKI_DTF_MASS_Bu_Constr"
       - "Bplus_M"
       - "J_psi_1S_M"
       - "Kplus_LOKI_ETA"
