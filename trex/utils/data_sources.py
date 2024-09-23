@@ -236,9 +236,9 @@ class DataSource(MultiConfigLoaderMixin, DataWritingMixin):
         {', '.join(boi)} [excluding mc-truth branches if data]
 
         Selection Criteria:
+        Hardware trigger: {selection.get('lzero', 'N/A')}
         Common Criteria: {selection.get('common_criteria', 'N/A')}
-        Global TIS: {selection.get('global_tis', 'N/A')}
-        Muon TOS: {selection.get('muon_tos', 'N/A')}
+        Stripping PID: {selection.get('stripping_PID', 'N/A')}
         Truth Matching: {selection.get('truth_matching', 'N/A')} [excluded if data]
         =========================================
         """
