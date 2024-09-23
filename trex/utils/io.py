@@ -92,7 +92,7 @@ def read_config(
 
 @timing
 def load_ntuple(
-    file_path: str,
+    path: str,
     key: Optional[str] = None,
     tree_name: Optional[str] = None,
     branches: Optional[List[str]] = None,
@@ -127,36 +127,39 @@ def load_ntuple(
 
 
 def load_root(
-    file_path: str,
-    library: str,
+    path: str,
     key: Optional[str] = None,
-    tree_name: Optional[str] = None,
+    tree: Optional[str] = None,
     branches: Optional[List[str]] = None,
     cut: Optional[Union[List[str], str]] = None,
     name: Optional[str] = None,
-    max_entries: Optional[int] = None,
-    batch_size: Optional[str] = "200 MB",
+    max_events: Optional[int] = None,
+    batch_size: Optional[str] = "2 MB",
+    library: str = "ak",  # 'pd' for pandas, 'ak' for awkward arrays
     **kwargs,
 ) -> Any:
-    """Wrapper for uproot.iterate() to load ROOT files into a pandas DataFrame"""
+    """Wrapper for uproot.iterate() to load ROOT files into pandas DataFrame or awkward Array."""
 
+    # Open the ROOT file and tree
     if key is not None:
-        events = uproot.open(f"{file_path}:{key}/{tree_name}")
+        events = uproot.open(f"{path}:{key}/{tree}")
     else:
-        events = uproot.open(f"{file_path}:{tree_name}")
+        events = uproot.open(f"{path}:{tree}")
 
-    # if pandas, batch and concatenate
+    # batched loa
+    bevs = events.num_entries_for(batch_size, branches, entry_stop=max_events)
+    tevs = events.num_entries
+    nits = round(tevs / bevs + 0.5)
+
+    # differentiate the library used
     if library == "pd":
-        bevs = events.num_entries_for(batch_size, branches, entry_stop=max_entries)
-        tevs = events.num_entries
-        nits = round(tevs / bevs + 0.5)
         aggr = []
         for batch in tqdm(
             events.iterate(
                 expressions=branches,
                 cut=cut,
                 library=library,
-                entry_stop=max_entries,
+                entry_stop=max_events,
                 step_size=batch_size,
                 **kwargs,
             ),
@@ -165,21 +168,42 @@ def load_root(
             desc=f"Batches loaded",
         ):
             aggr.append(batch)
-        # concatenate batches into one dataframe
+        # Concatenate batches into one dataframe
         df = pd.concat(aggr)
 
-        # assign TeX label to df for plotting
+        # Assign TeX label to DataFrame for plotting
         if name is not None:
             df.name = name
 
-    # else, load into awkward or numpy objects
+    # If awkward, batch and concatenate into awkward array
+    elif library == "ak":
+        aggr = []
+        for batch in tqdm(
+            events.iterate(
+                expressions=branches,
+                cut=cut,
+                library=library,
+                entry_stop=max_events,
+                step_size=batch_size,
+                **kwargs,
+            ),
+            total=nits,
+            ascii=True,
+            desc=f"Batches loaded",
+        ):
+            aggr.append(batch)
+
+        # Concatenate batches into one awkward array along axis 0 (default)
+        df = ak.concatenate(aggr, axis=0)
+
+        # Assign TeX label to awkward array for plotting
+        if name is not None:
+            df.name = name
+
+    # Raise an error if an unsupported library is passed
     else:
-        df = events.arrays(
-            expressions=branches,
-            cut=cut,
-            library=library,
-            entry_stop=max_entries,
-            **kwargs,
+        raise ValueError(
+            "Unsupported library. Use 'pd' for pandas or 'ak' for awkward arrays."
         )
 
     print(f"\nSUCCESS: loaded with {len(df)} entries")
@@ -208,7 +232,7 @@ def simple_load(
     max_events: int | None = None,
     library: str | None = "ak",
     cut: str | None = None,
-    timeout: int | None = 500,
+    timeout: int | None = 10000,
     **kwargs: Any,
 ) -> Any:
     """Load a pandas DataFrame from a ROOT file.

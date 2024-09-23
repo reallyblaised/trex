@@ -5,7 +5,7 @@ user_id: "bldelane" # CERN user ID for kinit @CERN.CH
 
 # test-run configuration
 # =======================
-max_events: 1000
+max_events: -1 # -1 for all events
 
 
 # data-taking configuration
@@ -38,11 +38,12 @@ channel:
       - "Kplus_PIDK"
       - "Kplus_isMuon"
       - "Kplus_hasMuon"
+      - "Kplus_hasRich"
       - "Kplus_LOKI_PP_InAccMuon"
       - "Kplus_ProbNNghost"
-      - "Bplus_DTF_MASS_JPsi_Constr_J_psi_1S_M"
-      - "Bplus_DTF_MASS_JPsi_Constr_M"
-      - "Bplus_LOKI_DTF_MASS_Bu_Constr"
+      # - "Bplus_DTF_MASS_JPsi_Constr_J_psi_1S_M"
+      # - "Bplus_DTF_MASS_JPsi_Constr_M"
+      # - "Bplus_LOKI_DTF_MASS_Bu_Constr"
       - "Bplus_M"
       - "J_psi_1S_M"
       - "Kplus_LOKI_ETA"
@@ -50,21 +51,17 @@ channel:
       - "Bplus_L0Global_TIS"
       - "muplus_L0MuonDecision_TOS"
       - "muminus_L0MuonDecision_TOS"
-      - "Bplus_Hlt1TwoTrackMVADecision_TOS"
-      - "Bplus_Hlt1TrackMVADecision_TOS"
-      - "Bplus_Hlt2Topo2BodyDecision_TOS"
-      - "Bplus_Hlt2Topo3BodyDecision_TOS"
       - "Kplus_PT"
       - "Kplus_P"
       - "Kplus_TRUEID"
       - "Bplus_TRUEID"
       - "Bplus_BKGCAT"
     selection:
-      common_criteria: "( (Bplus_Hlt1TwoTrackMVADecision_TOS) | (Bplus_Hlt1TrackMVADecision_TOS) ) &\
-          ( (Bplus_Hlt2Topo2BodyDecision_TOS) | (Bplus_Hlt2Topo3BodyDecision_TOS) ) & \
+      common_criteria: "( (Bplus_Hlt1TwoTrackMVADecision_TOS==1.0) | (Bplus_Hlt1TrackMVADecision_TOS==1.0) ) &\
+          ( (Bplus_Hlt2Topo2BodyDecision_TOS==1.0) | (Bplus_Hlt2Topo3BodyDecision_TOS==1.0) ) & \
           ( (Kplus_PT>250) & (Kplus_P>10e3) & (Kplus_P<100e3) & (J_psi_1S_M>3096-50) & (J_psi_1S_M<3096+50) )"
-      global_tis: "(Bplus_L0Global_TIS)"
-      muon_tos: "((muplus_L0MuonDecision_TOS) | (muminus_L0MuonDecision_TOS))"
+      stripping_pid: "( (Kplus_hasRich==1.0) & (Kplus_PIDK>-5.0) )" # https://gitlab.cern.ch/lhcb/Stripping/-/blob/2018-patches/Phys/CommonParticlesArchive/python/CommonParticlesArchive/Stripping34/CommonParticles/StdAllLooseKaons.py?ref_type=heads
+      lzero: "( (Bplus_L0Global_TIS==1.0) | (muplus_L0MuonDecision_TOS==1.0) | (muminus_L0MuonDecision_TOS==1.0) )"
       truth_matching: "( (Kplus_TRUEID==0) & (Bplus_TRUEID==0) & (Bplus_BKGCAT==60) )" # applied to study ghost PID response in DDmisID
 
 
