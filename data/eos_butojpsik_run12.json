@@ -1,62 +1,62 @@
 {
     "2011": {
         "data": {
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/data/2011/nTuple_data_mm_2011_MU_Bu2LLK_mmLine_DaVinci_v39r1p1_stripping_v21r1p1.root",
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/data/2011/nTuple_data_mm_2011_MD_Bu2LLK_mmLine_DaVinci_v39r1p1_stripping_v21r1p1.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2011/Kmumu/data/raw/B2Kmumu_2011_MU.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2011/Kmumu/data/raw/B2Kmumu_2011_MD.root"
         },
         "mc": {
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/mc/2011/controlChannel/nTuple_Bs02PhiJpsiMuMu_MC_2011_MD_Bu2LLKNoPID_mmLine_restripped_DaVinci_v39r1p1_stripping_v21r1p1.root",
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/mc/2011/controlChannel/nTuple_Bs02PhiJpsiMuMu_MC_2011_MU_Bu2LLKNoPID_mmLine_restripped_DaVinci_v39r1p1_stripping_v21r1p1.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2011/Kmumu/MC/genLevel/Kmumu_2011_MU_GenLevel.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2011/Kmumu/MC/genLevel/Kmumu_2011_MD_GenLevel.root"
         }
     },
     "2012": {
         "data": {
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/data/2012/nTuple_data_mm_2012_MD_Bu2LLK_mmLine_DaVinci_v39r1p1_stripping_v21r0p1.root",
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/data/2012/nTuple_data_mm_2012_MU_Bu2LLK_mmLine_DaVinci_v39r1p1_stripping_v21r0p1.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2012/Kmumu/data/raw/B2Kmumu_2012_MU.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2012/Kmumu/data/raw/B2Kmumu_2012_MD.root"
         },
         "mc": {
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/mc/2012/controlChannel/nTuple_Bs02PhiJpsiMuMu_MC_2012_MD_Bu2LLKNoPID_mmLine_restripped_DaVinci_v39r1p1_stripping_v21r0p1.root",
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/mc/2012/controlChannel/nTuple_Bs02PhiJpsiMuMu_MC_2012_MU_Bu2LLKNoPID_mmLine_restripped_DaVinci_v39r1p1_stripping_v21r0p1.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2012/Kmumu/MC/genLevel/Kmumu_2012_MU_GenLevel.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2012/Kmumu/MC/genLevel/Kmumu_2012_MD_GenLevel.root"
         }
     },
     "2015": {
         "data": {
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/data/2015/nTuple_data_mm_2015_MD_Bu2LLK_mmLine_DaVinci_v41r4p5_stripping_v24r1p1.root",
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/data/2015/nTuple_data_mm_2015_MU_Bu2LLK_mmLine_DaVinci_v41r4p5_stripping_v24r1p1.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2015/Kmumu/data/raw/B2Kmumu_2015_MU.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2015/Kmumu/data/raw/B2Kmumu_2015_MD.root"
         },
         "mc": {
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/mc/2015/controlChannel/nTuple_Bs02PhiJpsiMuMu_MC_2015_MD_Bu2LLKNoPID_mmLine_restripped_DaVinci_v41r4p5_stripping_v24r1p1.root",
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/mc/2015/controlChannel/nTuple_Bs02PhiJpsiMuMu_MC_2015_MU_Bu2LLKNoPID_mmLine_restripped_DaVinci_v41r4p5_stripping_v24r1p1.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2015/Kmumu/MC/genLevel/Kmumu_2015_MU_GenLevel.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2015/Kmumu/MC/genLevel/Kmumu_2015_MD_GenLevel.root"
         }
     },
     "2016": {
         "data": {
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/data/2016/nTuple_data_mm_2016_MD_Bu2LLK_mmLine_DaVinci_v41r4p5_stripping_v28r1p1.root",
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/data/2016/nTuple_data_mm_2016_MU_Bu2LLK_mmLine_DaVinci_v41r4p5_stripping_v28r1p1.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2016/Kmumu/data/raw/B2Kmumu_2016_MU.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2016/Kmumu/data/raw/B2Kmumu_2016_MD.root"
         },
         "mc": {
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/mc/2016/controlChannel/nTuple_Bs02PhiJpsiMuMu_MC_2016_MD_Bu2LLKNoPID_mmLine_restripped_DaVinci_v41r4p5_stripping_v28r1p1.root",
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/mc/2016/controlChannel/nTuple_Bs02PhiJpsiMuMu_MC_2016_MU_Bu2LLKNoPID_mmLine_restripped_DaVinci_v41r4p5_stripping_v28r1p1.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2016/Kmumu/MC/genLevel/Kmumu_2016_MU_GenLevel.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2016/Kmumu/MC/genLevel/Kmumu_2016_MD_GenLevel.root"
         }
     },
     "2017": {
         "data": {
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/data/2017/nTuple_data_mm_2017_MD_Bu2LLK_mmLine_DaVinci_v42r7p2_stripping_v29r2.root",
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/data/2017/nTuple_data_mm_2017_MU_Bu2LLK_mmLine_DaVinci_v42r7p2_stripping_v29r2.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2017/Kmumu/data/raw/B2Kmumu_2017_MU.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2017/Kmumu/data/raw/B2Kmumu_2017_MD.root"
         },
         "mc": {
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/mc/2017/controlChannel/nTuple_Bs02PhiJpsiMuMu_MC_2017_MD_Bu2LLKNoPID_mmLine_restripped_DaVinci_v42r7p2_stripping_v29r2.root",
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/mc/2017/controlChannel/nTuple_Bs02PhiJpsiMuMu_MC_2017_MU_Bu2LLKNoPID_mmLine_restripped_DaVinci_v42r7p2_stripping_v29r2.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2017/Kmumu/MC/genLevel/Kmumu_2017_MU_GenLevel.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2017/Kmumu/MC/genLevel/Kmumu_2017_MD_GenLevel.root"
         }
     },
     "2018": {
         "data": {
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/data/2018/nTuple_data_mm_2018_MD_Bu2LLK_mmLine_DaVinci_v44r4_stripping_v34.root",
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/data/2018/nTuple_data_mm_2018_MU_Bu2LLK_mmLine_DaVinci_v44r4_stripping_v34.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2018/Kmumu/data/raw/B2Kmumu_2018_MU.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2018/Kmumu/data/raw/B2Kmumu_2018_MD.root"
         },
         "mc": {
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/mc/2018/controlChannel/nTuple_Bs02PhiJpsiMuMu_MC_2018_MD_Bu2LLKNoPID_mmLine_restripped_DaVinci_v44r4_stripping_v34.root",
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/B2Xemu/nTuple_raw/mc/2018/controlChannel/nTuple_Bs02PhiJpsiMuMu_MC_2018_MU_Bu2LLKNoPID_mmLine_restripped_DaVinci_v44r4_stripping_v34.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2018/Kmumu/MC/genLevel/Kmumu_2018_MU_GenLevel.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2018/Kmumu/MC/genLevel/Kmumu_2018_MD_GenLevel.root"
         }
     }
 }
