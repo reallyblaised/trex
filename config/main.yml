@@ -1,7 +1,11 @@
 # -------------------------------
 # user-defined configuration file
 # -------------------------------
-user_id: "bldelane" # CERN user ID for kinit @CERN.CH
+
+# authentication credentials - kinit @CERN.CH for EOS storage access
+# ==================================================================
+user_id: "bldelane" 
+
 
 # test-run configuration
 # =======================
@@ -29,46 +33,34 @@ data_types:
 # ===========================
 channel:
   butojpsik_mm: # B+ -> J/psi(->mumu) K+s
-    key: "bu2kmumutuple"
+    key: "B2Kmumu_Tuple"
     tree: "DecayTree"
     boi: # Branches Of Interest
-      - "Kplus_PIDmu"
-      - "Kplus_PIDe"
-      - "Kplus_PIDp"
-      - "Kplus_PIDK"
-      - "Kplus_isMuon"
-      - "Kplus_hasMuon"
-      - "Kplus_hasRich"
-      - "Kplus_LOKI_PP_InAccMuon"
-      - "Kplus_ProbNNghost"
-      # - "Bplus_DTF_MASS_JPsi_Constr_J_psi_1S_M"
-      # - "Bplus_DTF_MASS_JPsi_Constr_M"
-      # - "Bplus_LOKI_DTF_MASS_Bu_Constr"
-      - "Bplus_M"
-      - "J_psi_1S_M"
-      - "Kplus_LOKI_ETA"
-      - "nTracks"
-      - "Bplus_L0Global_TIS"
-      - "muplus_L0MuonDecision_TOS"
-      - "muminus_L0MuonDecision_TOS"
-      - "Bplus_Hlt1TwoTrackMVADecision_TOS"
-      - "Bplus_Hlt1TrackMVADecision_TOS"
-      - "Bplus_Hlt2Topo2BodyDecision_TOS"
-      - "Bplus_Hlt2Topo3BodyDecision_TOS"
-      - "Kplus_PT"
-      - "Kplus_P"
-      - "Kplus_TRUEID"
-      - "Bplus_TRUEID"
-      - "Bplus_BKGCAT"
+      - "B_plus_L0Global_TIS"
+      - "e_plus_L0MuonDecision_TOS" # naming convention in RX framework
+      - "e_minus_L0MuonDecision_TOS" # naming convention in RX framework
+      - "K_Kst_PT"
+      #- "B_plus_DTFM_J_psi_1S_M"
+      - "B_plus_M"
+      - "K_Kst_ETA" # naming convention in RX framework
+    # aliases: # NOTE: store as a single dict
+    #   "B_plus_DTF_M" : "B_plus_DTFM_J_psi_1S_M"
     selection:
-      common_criteria: "( (Bplus_Hlt1TwoTrackMVADecision_TOS==1.0) | (Bplus_Hlt1TrackMVADecision_TOS==1.0) ) &\
-          ( (Bplus_Hlt2Topo2BodyDecision_TOS==1.0) | (Bplus_Hlt2Topo3BodyDecision_TOS==1.0) ) & \
-          ( (Kplus_PT>250) & (Kplus_P>10e3) & (Kplus_P<100e3) & (J_psi_1S_M>3096-50) & (J_psi_1S_M<3096+50) )"
-      stripping_pid: "( (Kplus_hasRich==1.0) & (Kplus_PIDK>-5.0) )" # https://gitlab.cern.ch/lhcb/Stripping/-/blob/2018-patches/Phys/CommonParticlesArchive/python/CommonParticlesArchive/Stripping34/CommonParticles/StdAllLooseKaons.py?ref_type=heads
-      lzero: "( (Bplus_L0Global_TIS==1.0) | (muplus_L0MuonDecision_TOS==1.0) | (muminus_L0MuonDecision_TOS==1.0) )"
-      truth_matching: "( (Kplus_TRUEID==0) & (Bplus_TRUEID==0) & (Bplus_BKGCAT==60) )" # applied to study ghost PID response in DDmisID
+      mass: "( (B_plus_M>5_200) & (B_plus_M<5_400) )"
+      pid: "(K_Kst_PIDK>0.0)" 
+      lzero: "( (e_plus_L0MuonDecision_TOS==1.0) | (e_minus_L0MuonDecision_TOS==1.0) )"
+      truth_matching: "( (abs(B_plus_TRUEID)==521) & (J_psi_1S_TRUEID==443) & (abs(J_psi_1S_MC_MOTHER_ID)==521) & (abs(e_plus_TRUEID)==13) & (e_plus_MC_MOTHER_ID==443) & (abs(e_minus_TRUEID)==13) & (e_minus_MC_MOTHER_ID==443) & (abs(K_Kst_TRUEID)==321) & (abs(K_Kst_MC_MOTHER_ID)==521) & (B_plus_BKGCAT==0) )"
+        # signal: "( (abs(Bplus_TRUEID)==521) & (J_psi_1S_TRUEID==443) & (abs(J_psi_1S_MC_MOTHER_ID)==521) & (abs(muplus_TRUEID)==13) & (muplus_MC_MOTHER_ID==443) & (abs(muminus_TRUEID)==13) & (muminus_MC_MOTHER_ID==443) & (abs(Kplus_TRUEID)==321) & (abs(Kplus_MC_MOTHER_ID)==521) & (Bplus_BKGCAT==0) )"
+        # misid: "(Bplus_BKGCAT==30)"
+
+
+# binning scheme for the TISTOS study 
+# ===================================
+binning_scheme: # NOTE: store as a single dict
+    "K_Kst_PT" : [0, 1_500, 3_000, 5_0000, 10_000, 15_000, 25_000, 100_000]
+    "K_Kst_ETA" : [1.5, 2.5, 3.5, 5.5]
 
 
 # storage configuration for output files
 # ======================================
-output_storage  : "/ceph/submit/data/user/b/blaised/trex"
+output_storage  : "/ceph/submit/data/user/b/blaised/trex/bu2kmumu/"

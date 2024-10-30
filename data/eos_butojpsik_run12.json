@@ -1,62 +1,62 @@
 {
     "2011": {
         "data": {
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2011/Kmumu/data/raw/B2KJPsimumu_2011_MU.root",
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2011/Kmumu/data/raw/B2KJPsimumu_2011_MD.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2011/Kmumu/data/raw/B2Kmumu_2011_MU.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2011/Kmumu/data/raw/B2Kmumu_2011_MD.root"
         },
         "mc": {
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2011/Kmumu/MC/genLevel/KJPsimumu_2011_MU_GenLevel.root",
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2011/Kmumu/MC/genLevel/KJPsimumu_2011_MD_GenLevel.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2011/Kmumu/MC/raw/KJPsimumu_2011_MU.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2011/Kmumu/MC/raw/KJPsimumu_2011_MD.root"
         }
     },
     "2012": {
         "data": {
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2012/Kmumu/data/raw/B2KJPsimumu_2012_MU.root",
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2012/Kmumu/data/raw/B2KJPsimumu_2012_MD.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2012/Kmumu/data/raw/B2Kmumu_2012_MU.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2012/Kmumu/data/raw/B2Kmumu_2012_MD.root"
         },
         "mc": {
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2012/Kmumu/MC/genLevel/KJPsimumu_2012_MU_GenLevel.root",
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2012/Kmumu/MC/genLevel/KJPsimumu_2012_MD_GenLevel.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2012/Kmumu/MC/raw/KJPsimumu_2012_MU.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2012/Kmumu/MC/raw/KJPsimumu_2012_MD.root"
         }
     },
     "2015": {
         "data": {
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2015/Kmumu/data/raw/B2KJPsimumu_2015_MU.root",
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2015/Kmumu/data/raw/B2KJPsimumu_2015_MD.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2015/Kmumu/data/raw/B2Kmumu_2015_MU.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2015/Kmumu/data/raw/B2Kmumu_2015_MD.root"
         },
         "mc": {
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2015/Kmumu/MC/genLevel/KJPsimumu_2015_MU_GenLevel.root",
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2015/Kmumu/MC/genLevel/KJPsimumu_2015_MD_GenLevel.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2015/Kmumu/MC/raw/KJPsimumu_2015_MU.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2015/Kmumu/MC/raw/KJPsimumu_2015_MD.root"
         }
     },
     "2016": {
         "data": {
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2016/Kmumu/data/raw/B2KJPsimumu_2016_MU.root",
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2016/Kmumu/data/raw/B2KJPsimumu_2016_MD.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2016/Kmumu/data/raw/B2Kmumu_2016_MU.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2016/Kmumu/data/raw/B2Kmumu_2016_MD.root"
         },
         "mc": {
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2016/Kmumu/MC/genLevel/KJPsimumu_2016_MU_GenLevel.root",
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2016/Kmumu/MC/genLevel/KJPsimumu_2016_MD_GenLevel.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2016/Kmumu/MC/raw/KJPsimumu_2016_MU.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2016/Kmumu/MC/raw/KJPsimumu_2016_MD.root"
         }
     },
     "2017": {
         "data": {
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2017/Kmumu/data/raw/B2KJPsimumu_2017_MU.root",
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2017/Kmumu/data/raw/B2KJPsimumu_2017_MD.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2017/Kmumu/data/raw/B2Kmumu_2017_MU.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2017/Kmumu/data/raw/B2Kmumu_2017_MD.root"
         },
         "mc": {
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2017/Kmumu/MC/genLevel/KJPsimumu_2017_MU_GenLevel.root",
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2017/Kmumu/MC/genLevel/KJPsimumu_2017_MD_GenLevel.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2017/Kmumu/MC/raw/KJPsimumu_2017_MU.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2017/Kmumu/MC/raw/KJPsimumu_2017_MD.root"
         }
     },
     "2018": {
         "data": {
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2018/Kmumu/data/raw/B2KJPsimumu_2018_MU.root",
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2018/Kmumu/data/raw/B2KJPsimumu_2018_MD.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2018/Kmumu/data/raw/B2Kmumu_2018_MU.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2018/Kmumu/data/raw/B2Kmumu_2018_MD.root"
         },
         "mc": {
-            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2018/Kmumu/MC/genLevel/KJPsimumu_2018_MU_GenLevel.root",
-            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2018/Kmumu/MC/genLevel/KJPsimumu_2018_MD_GenLevel.root"
+            "MU": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2018/Kmumu/MC/raw/KJPsimumu_2018_MU.root",
+            "MD": "root://eoslhcb.cern.ch//eos/lhcb/wg/RD/RK-highq2/data_raw/tuples/2018/Kmumu/MC/raw/KJPsimumu_2018_MD.root"
         }
     }
 }

@@ -1,6 +1,13 @@
 import os
 from pathlib import Path
-from .utils import *
+from trex.utils.config import ConfigLoader
+from trex.utils.io import (
+    oneshot_load_root,
+    batched_load_root,
+    update_write_df,
+    write_df,
+    load_hist,
+)
 
 # Define potential config and data directory paths, relative to the module and current directory
 CONFIG_LOCATIONS = [
